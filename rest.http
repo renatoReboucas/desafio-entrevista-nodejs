@@ -4,16 +4,15 @@
 ### /company
 GET  {{baseUrl}}company HTTP/1.1
 
-### nota
-GET  {{baseUrl}}nota HTTP/1.1
-
 ###
-POST {{baseUrl}}nota HTTP/1.1
+POST {{baseUrl}}company HTTP/1.1
 Content-Type: application/json
 
 {
-  "teste": "teste 01"
+  "name": "teste 01",
+  "cnpj":85045712000180,
+  "address": "rua sei lá",
+  "phone":"(95) 2454-8231",
+  "numberMotocycles": 10,
+  "numberCars": 10
 }
-
-### /emailPop
-GET {{baseUrl}}email HTTP/1.1

@@ -8,7 +8,7 @@ export class CompanyModel {
   @Column()
   name: string;
 
-  @Column('int')
+  @Column('bigint', { width: 20 })
   cnpj: number;
 
   @Column()
