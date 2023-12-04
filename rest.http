@@ -1,8 +1,8 @@
 ### Variables
-@baseUrl = http://localhost:3000/
+@baseUrl = http://localhost:3000/api/v1/
 
-### /
-GET  {{baseUrl}} HTTP/1.1
+### /company
+GET  {{baseUrl}}company HTTP/1.1
 
 ### nota
 GET  {{baseUrl}}nota HTTP/1.1
