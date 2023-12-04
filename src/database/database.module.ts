@@ -10,7 +10,7 @@ const dataSourceOptions: DataSourceOptions = {
   username: process.env.MYSQL_USERNAME,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
-  entities: [],
+  entities: ['dist/**/*.model.js'],
   synchronize: true,
   logging: true,
 };
