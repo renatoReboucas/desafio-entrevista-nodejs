@@ -1,6 +1,7 @@
 FROM mysql:latest
 
 ENV MYSQL_ROOT_PASSWORD=mudar123
+ENV MYSQL_DATABASE=estabelecimento
 
 EXPOSE 3306
 
