@@ -1,1 +1,3 @@
-export
+export class CompanySchema {
+  name;
+}
