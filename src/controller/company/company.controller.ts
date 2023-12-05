@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CompanyModel } from 'src/models/company.model';
 import { CompanySchema } from 'src/schemas/company.schemas';
@@ -21,18 +31,36 @@ export class CompanyController {
     const list = await this.model.find();
     return { data: list };
   }
-  @Get()
-  public async findOne() {
-    return `This action returns a  company`;
+  @Get(':uuid')
+  public async findOne(
+    @Param('uuid', ParseUUIDPipe) uuid: string,
+  ): Promise<{ data: CompanyModel }> {
+    const company = await this.model.findOneOrFail({ where: { uuid } });
+    return { data: company };
   }
 
-  @Put()
-  public async update() {
-    return `This action updates a  company`;
+  @Put(':uuid')
+  public async update(
+    @Param('uuid', ParseUUIDPipe) uuid: string,
+    @Body() body: CompanySchema,
+  ): Promise<{ data: CompanyModel }> {
+    const company = await this.model.findOneOrFail({ where: { uuid } });
+    if (!company) {
+      throw new NotFoundException(`Não achei o uuid: ${uuid} informado.`);
+    }
+    await this.model.update({ uuid }, body);
+    return { data: await this.model.findOne({ where: { uuid } }) };
   }
 
-  @Delete()
-  public async remove() {
-    return `This action removes a  company`;
+  @Delete(':uuid')
+  public async remove(
+    @Param('uuid', ParseUUIDPipe) uuid: string,
+  ): Promise<{ data: string }> {
+    const company = await this.model.findOneOrFail({ where: { uuid } });
+    if (!company) {
+      throw new NotFoundException(`Não achei o uuid: ${uuid} informado.`);
+    }
+    await this.model.delete({ uuid });
+    return { data: `A empresa ${uuid} foi removida com sucesso!` };
   }
 }
