@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { AccessControlModel } from './accessControl.model';
 
 @Entity()
 export class CompanyModel {
@@ -22,4 +23,7 @@ export class CompanyModel {
 
   @Column('int')
   numberCars: number;
+
+  @OneToMany(() => AccessControlModel, (accessControl) => accessControl.company)
+  accessControl: AccessControlModel[];
 }

@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  // ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { AccessControlModel } from './accessControl.model';
 
 @Entity()
 export class VehiclesModel {
@@ -19,4 +26,7 @@ export class VehiclesModel {
 
   @Column()
   Type: string;
+
+  @OneToMany(() => AccessControlModel, (accessControl) => accessControl.vehicle)
+  accessControl: AccessControlModel[];
 }
