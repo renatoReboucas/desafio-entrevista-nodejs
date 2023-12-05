@@ -10,10 +10,11 @@ export class CompanyController {
     @InjectRepository(CompanyModel) private model: Repository<CompanyModel>,
   ) {}
   @Post()
-  public async create(@Body() body: CompanySchema): Promise<any> {
-    console.log(body);
+  public async create(
+    @Body() body: CompanySchema,
+  ): Promise<{ data: CompanyModel }> {
     const company = await this.model.save(body);
-    return company;
+    return { data: company };
   }
   @Get()
   public async index(): Promise<{ data: CompanyModel[] }> {
